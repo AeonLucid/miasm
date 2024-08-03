@@ -574,6 +574,15 @@ class instruction_arm(instruction):
         # LDR XXX, [PC, offset] => PC is self.offset+8
         return ExprInt(self.offset+8, expr.size)
 
+    def is_relative_from_pc(self):
+        # TODO: Implement
+        return False
+
+    def fix_relative_from_pc(self, new_offset, old_offset):
+        # TODO: Implement
+        pass
+
+
 class instruction_armt(instruction_arm):
     __slots__ = []
 

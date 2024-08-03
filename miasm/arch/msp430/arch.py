@@ -223,6 +223,14 @@ class instruction_msp430(instruction):
             args.append(a)
         return args
 
+    def is_relative_from_pc(self):
+        # TODO: Implement
+        return False
+
+    def fix_relative_from_pc(self, new_offset, old_offset):
+        # TODO: Implement
+        pass
+
 
 mode_msp430 = None
 

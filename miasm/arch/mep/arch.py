@@ -307,6 +307,14 @@ class instruction_mep(instruction):
             raise ValueError("Strange offset! %r" % off)
         self.args[num] = ExprInt(off, 32)
 
+    def is_relative_from_pc(self):
+        # TODO: Implement
+        return False
+
+    def fix_relative_from_pc(self, new_offset, old_offset):
+        # TODO: Implement
+        pass
+
 
 class mep_additional_info(object):
     """Additional MeP instructions information

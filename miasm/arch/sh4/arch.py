@@ -487,6 +487,14 @@ class instruction_sh4(instruction):
         args = [a for a in self.args]
         return args
 
+    def is_relative_from_pc(self):
+        # TODO: Implement
+        return False
+
+    def fix_relative_from_pc(self, new_offset, old_offset):
+        # TODO: Implement
+        pass
+
 
 class mn_sh4(cls_mn):
     bintree = {}

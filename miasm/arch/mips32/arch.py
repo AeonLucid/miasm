@@ -182,6 +182,14 @@ class instruction_mips32(cpu.instruction):
         args = [a for a in self.args]
         return args
 
+    def is_relative_from_pc(self):
+        # TODO: Implement
+        return False
+
+    def fix_relative_from_pc(self, new_offset, old_offset):
+        # TODO: Implement
+        pass
+
 
 class mn_mips32(cpu.cls_mn):
     delayslot = 1

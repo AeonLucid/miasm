@@ -211,6 +211,14 @@ class instruction_ppc(instruction):
     def get_asm_offset(self, x):
         return ExprInt_from(x, self.offset)
 
+    def is_relative_from_pc(self):
+        # TODO: Implement
+        return False
+
+    def fix_relative_from_pc(self, new_offset, old_offset):
+        # TODO: Implement
+        pass
+
 
 class mn_ppc(cls_mn):
     delayslot = 0

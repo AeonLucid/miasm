@@ -1045,6 +1045,7 @@ def assemble_block(mnemo, block, conservative=False):
 
         # Assemble an instruction
         saved_args = list(instr.args)
+        old_offset = instr.offset
         instr.offset = block.loc_db.get_location_offset(block.loc_key) + offset_i
 
         # Replace instruction's arguments by resolved ones
@@ -1052,6 +1053,9 @@ def assemble_block(mnemo, block, conservative=False):
 
         if instr.dstflow():
             instr.fixDstOffset()
+
+        if instr.is_relative_from_pc():
+            instr.fix_relative_from_pc(old_offset, instr.offset)
 
         old_l = instr.l
         cached_candidate, _ = conservative_asm(
@@ -1066,6 +1070,8 @@ def assemble_block(mnemo, block, conservative=False):
             instr.args = instr.resolve_args_with_symbols(block.loc_db)
             if instr.dstflow():
                 instr.fixDstOffset()
+            if instr.is_relative_from_pc():
+                instr.fix_relative_from_pc(old_offset, instr.offset)
             cached_candidate, _ = conservative_asm(
                 mnemo, instr, block.loc_db,
                 conservative

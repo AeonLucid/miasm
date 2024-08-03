@@ -484,6 +484,31 @@ class instruction_aarch64(instruction):
             raise ValueError('strange offset! %r' % off)
         self.args[index] = m2_expr.ExprInt(int(off), 64)
 
+    def is_relative_from_pc(self):
+        return self.name in ['ADR']
+
+    def fix_relative_from_pc(self, new_offset, old_offset):
+        diff = new_offset - old_offset
+
+        if diff == 0:
+            return
+
+        index = 1
+        e = self.args[index]
+
+        if self.offset is None:
+            raise ValueError('symbol not resolved %s' % l)
+
+        if not isinstance(e, m2_expr.ExprInt):
+            log.debug('fix_relative_from_pc dyn %r', e)
+            return
+
+        off = (int(e) - diff) & int(e.mask)
+
+        if int(off % 4):
+            raise ValueError('fix_relative_from_pc strange offset! %r' % off)
+
+        self.args[index] = m2_expr.ExprInt(int(off), 64)
 
 
 class mn_aarch64(cls_mn):

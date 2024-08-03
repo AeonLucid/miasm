@@ -665,6 +665,13 @@ class instruction_x86(instruction):
             raise ValueError('check this %r' % expr)
         return "%s" % o
 
+    def is_relative_from_pc(self):
+        # TODO: Implement
+        return False
+
+    def fix_relative_from_pc(self, new_offset, old_offset):
+        # TODO: Implement
+        pass
 
 
 class mn_x86(cls_mn):
