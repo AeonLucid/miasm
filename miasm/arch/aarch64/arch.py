@@ -497,13 +497,17 @@ class instruction_aarch64(instruction):
         e = self.args[index]
 
         if self.offset is None:
-            raise ValueError('symbol not resolved %s' % l)
+            raise ValueError('no offset assigned')
 
         if not isinstance(e, m2_expr.ExprInt):
             log.debug('fix_relative_from_pc dyn %r', e)
             return
 
-        off = (int(e) - diff) & int(e.mask)
+        # Check if int(e) has most left bit set
+        if int(e) & (1 << (int(e.size) - 1)):
+            off = (int(e) - diff) & int(e.mask)
+        else:
+            off = (int(e) + diff) & int(e.mask)
 
         if int(off % 4):
             raise ValueError('fix_relative_from_pc strange offset! %r' % off)
